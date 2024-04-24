@@ -1,5 +1,9 @@
 const express = require('express')
 const Post = require('./models/Post/Post')
+const connectDB = require('./utils/connectDB')
+// call the db
+connectDB()
+//6.45
 const app = express()
 
 //* Middlewares
