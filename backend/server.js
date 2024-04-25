@@ -1,3 +1,6 @@
+require('dotenv').config()
+// const dotenv = require('dotenv')
+// dotenv.config()
 const express = require('express')
 const Post = require('./models/Post/Post')
 const connectDB = require('./utils/connectDB')
@@ -31,6 +34,6 @@ app.post('/api/v1/posts/create', async (req, res) => {
 //! Delete post
 
 //! PORT
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 //! Start the server....
 app.listen(PORT, console.log(`Server is up and running on port ${PORT}`))
