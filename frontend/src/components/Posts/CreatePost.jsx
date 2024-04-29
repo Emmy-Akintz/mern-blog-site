@@ -30,9 +30,20 @@ const CreatePost = () => {
             postMutation.mutate(postData)
         }
     })
-    console.log('mutation:', postMutation)
+    // get loading state
+    const isLoading = postMutation.isPending
+    // is error
+    const isError = postMutation.isError
+    // success
+    const isSuccess = postMutation.isSuccess
+    // error
+    const error = postMutation.error
+
     return (
         <div>
+            {isLoading && <p>Loading...</p>}
+            {isSuccess && <p>Post created successfully</p>}
+            {isError && <p>{error.message}</p>}
             <form onSubmit={formik.handleSubmit}>
                 <input
                     type="text"
