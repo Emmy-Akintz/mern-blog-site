@@ -1,8 +1,15 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useMutation } from '@tanstack/react-query'
+import { createPostAPI } from '../../APIServices/posts/postsAPI'
 
 const CreatePost = () => {
+    // post mutation
+    const postMutation = useMutation({
+        mutationKey: ['create post'],
+        mutationFn: createPostAPI
+    })
     const formik = useFormik({
         // initial data
         initialValues: {
@@ -17,6 +24,7 @@ const CreatePost = () => {
         // submit
         onSubmit: (values) => {
             console.log(values)
+            postMutation.mutate(values)
         }
     })
     return (
