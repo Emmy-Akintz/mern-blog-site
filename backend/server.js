@@ -3,6 +3,7 @@ require('dotenv').config()
 // dotenv.config()
 const express = require('express')
 const Post = require('./models/Post/Post')
+const cors = require('cors')
 const connectDB = require('./utils/connectDB')
 // call the db
 connectDB()
@@ -10,6 +11,13 @@ const app = express()
 
 //* Middlewares
 app.use(express.json()) //parse json data
+
+//* cors middleware
+const corsOption = {
+    origin: [process.env.WEBSITE],
+    Credential: true
+}
+app.use(cors(corsOption))
 
 //! Create post
 app.post('/api/v1/posts/create', async (req, res) => {

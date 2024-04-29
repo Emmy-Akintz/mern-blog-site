@@ -23,10 +23,14 @@ const CreatePost = () => {
         }),
         // submit
         onSubmit: (values) => {
-            console.log(values)
-            postMutation.mutate(values)
+            const postData = {
+                title: values.title,
+                description: values.description
+            }
+            postMutation.mutate(postData)
         }
     })
+    console.log('mutation:', postMutation)
     return (
         <div>
             <form onSubmit={formik.handleSubmit}>
