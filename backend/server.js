@@ -36,6 +36,13 @@ app.post('/api/v1/posts/create', async (req, res) => {
     }
 })
 //! List post
+app.get('api/v1/posts', async (req, res) => {
+    try {
+        const posts = await Post.find({})//!1.18
+    } catch (error) {
+        
+    }
+})
 //! Update post
 //! Get post
 //! Delete post
