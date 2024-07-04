@@ -36,11 +36,16 @@ app.post('/api/v1/posts/create', async (req, res) => {
     }
 })
 //! List post
-app.get('api/v1/posts', async (req, res) => {
+app.get('/api/v1/posts', async (req, res) => {
     try {
-        const posts = await Post.find({})//!1.18
+        const posts = await Post.find()
+        res.json({
+            status: 'success',
+            message: 'Post fetched successfully',
+            posts
+        })
     } catch (error) {
-        
+        res.json(error)
     }
 })
 //! Update post
