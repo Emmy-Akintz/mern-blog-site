@@ -35,7 +35,7 @@ app.post('/api/v1/posts/create', async (req, res) => {
         res.json(error)
     }
 })
-//! List post
+//! List posts
 app.get('/api/v1/posts', async (req, res) => {
     try {
         const posts = await Post.find()
@@ -49,6 +49,13 @@ app.get('/api/v1/posts', async (req, res) => {
     }
 })
 //! Update post
+app.put('/api/v1/posts/:postId', async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+})//0.53
 //! Get post
 //! Delete post
 
