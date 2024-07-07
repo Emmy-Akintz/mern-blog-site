@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <CreatePost />
-      <PostsList />//!3.32
+      <PostsList />
     </div>
   )
 }
