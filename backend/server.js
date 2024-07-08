@@ -51,7 +51,8 @@ app.get('/api/v1/posts', async (req, res) => {
 //! Update post
 app.put('/api/v1/posts/:postId', async (req, res) => {
     try {
-        
+        // get the post id from params
+        const postId = req.params.postId
     } catch (error) {
         
     }
