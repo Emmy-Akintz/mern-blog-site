@@ -53,11 +53,42 @@ app.put('/api/v1/posts/:postId', async (req, res) => {
     try {
         // get the post id from params
         const postId = req.params.postId
+        // find the post
+        const postFound = await Post.findById(postId)
+        if (!postFound) {
+            throw new Error('Post not found')
+        }
+        // update
+        const postUpdated = await Post.findByIdAndUpdate(
+            postId,
+            { title: req.body.title, description: req.body.description },
+            {
+                new: true
+            }
+        )
+        res.json({
+            status: 'Post updated successfully',
+            postUpdated
+        })
     } catch (error) {
-        
+        throw new Error(error)
     }
-})//0.53
+})
 //! Get post
+app.get('/api/v1/posts/:postId', async (req, res) => {
+    try {
+        // get the post id from params
+        const postId = req.params.postId
+        // find the post
+        const postFound = await Post.findById(postId)
+        res.json({
+            status: 'success',
+            postFound
+        })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
 //! Delete post
 
 //! PORT
