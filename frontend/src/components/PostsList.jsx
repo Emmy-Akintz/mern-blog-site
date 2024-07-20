@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { fetchAllPosts } from '../APIServices/posts/postsAPI'
+import { Link } from 'react-router-dom'
 
 function PostsList() {
   //! useQuery
@@ -19,6 +20,9 @@ function PostsList() {
           <div key={post?._id}>
             <h2>{post?.title}</h2>
             <p>{post?.description}</p>
+            <Link to={`/posts/${post._id}`}>
+              <button>Edit</button>
+            </Link>
           </div>
         )
       })}

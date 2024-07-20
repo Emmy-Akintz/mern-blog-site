@@ -13,7 +13,12 @@ export const createPostAPI = async (postData) => {
 } //? any function or asynchronous function with a return is a promise
 
 //! fetch all posts
-export const fetchAllPosts = async (req, res) => {
+export const fetchAllPosts = async () => {
     const posts = await axios.get(BASE_URL)
+    return posts.data
+}
+//! fetch post
+export const fetchPost = async (postId) => {
+    const posts = await axios.get(`${BASE_URL}/posts/${postId}`)
     return posts.data
 }
