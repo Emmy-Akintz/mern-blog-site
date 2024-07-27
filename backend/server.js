@@ -82,7 +82,7 @@ app.get('/api/v1/posts/:postId', async (req, res) => {
         // find the post
         const postFound = await Post.findById(postId)
         res.json({
-            status: 'success',
+            status: 'Post fetched successfully',
             postFound
         })
     } catch (error) {
