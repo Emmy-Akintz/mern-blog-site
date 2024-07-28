@@ -32,3 +32,8 @@ export const fetchPost = async (postId) => {
     const posts = await axios.get(`${BASE_URL}/${postId}`)
     return posts.data
 }
+//! delete post
+export const deletePostAPI = async (postId) => {
+    const posts = await axios.delete(`${BASE_URL}/${postId}`)
+    return posts.data
+}

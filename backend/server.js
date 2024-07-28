@@ -82,7 +82,8 @@ app.get('/api/v1/posts/:postId', async (req, res) => {
         // find the post
         const postFound = await Post.findById(postId)
         res.json({
-            status: 'Post fetched successfully',
+            status: 'success',
+            message: "Post fetched successfully",
             postFound
         })
     } catch (error) {
@@ -90,6 +91,20 @@ app.get('/api/v1/posts/:postId', async (req, res) => {
     }
 })
 //! Delete post
+app.delete('/api/v1/posts/:postId', async (req, res) => {
+    try {
+        // get the post id from params
+        const postId = req.params.postId
+        // find the post and delete it
+        await Post.findByIdAndDelete(postId)
+        res.json({
+            status: 'success',
+            message: "Post deleted successfully"
+        })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
 
 //! PORT
 const PORT = process.env.PORT || 5000
