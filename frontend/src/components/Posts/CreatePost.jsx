@@ -7,7 +7,7 @@ import { createPostAPI } from '../../APIServices/posts/postsAPI'
 const CreatePost = () => {
     // post mutation
     const postMutation = useMutation({
-        mutationKey: ['create post'],
+        mutationKey: ['create-post'],
         mutationFn: createPostAPI
     })
     const formik = useFormik({
