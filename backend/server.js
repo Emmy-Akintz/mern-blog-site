@@ -20,7 +20,7 @@ const corsOption = {
 app.use(cors(corsOption))
 
 //! Create post
-app.post('/api/v1/posts/create', async (req, res) => {
+app.post('/api/v1/posts/create', async (req, res, next) => {
     try {
         //* get the payload
         const postData = req.body
@@ -104,6 +104,11 @@ app.delete('/api/v1/posts/:postId', async (req, res) => {
     } catch (error) {
         throw new Error(error)
     }
+})
+
+//! Error handling middleware 3.51
+app.use((err, req, res, next) => {
+    console.log(err)
 })
 
 //! PORT
