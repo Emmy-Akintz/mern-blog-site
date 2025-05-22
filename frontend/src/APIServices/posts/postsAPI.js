@@ -5,20 +5,20 @@ const BASE_URL = import.meta.env.VITE_SERVER_LINK
 //! create post api
 export const createPostAPI = async (postData) => {
     console.log(postData)
-    const response = await axios.post(`${BASE_URL}/create`, { 
+    const response = await axios.post(`${BASE_URL}/create`, {
         title: postData.title,
         description: postData.description
-     })
+    })
     return response.data
 } //? any function or asynchronous function with a return is a promise
 
 //! update post api
 export const updatePostAPI = async (postData) => {
     console.log(postData)
-    const response = await axios.put(`${BASE_URL}/${postData?.postId}`, { 
+    const response = await axios.put(`${BASE_URL}/${postData?.postId}`, {
         title: postData.title,
         description: postData.description
-     })
+    })
     return response.data
 }
 

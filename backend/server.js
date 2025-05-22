@@ -1,117 +1,128 @@
-require('dotenv').config()
+require("dotenv").config();
 // const dotenv = require('dotenv')
 // dotenv.config()
-const express = require('express')
-const Post = require('./models/Post/Post')
-const cors = require('cors')
-const connectDB = require('./utils/connectDB')
+const express = require("express");
+const Post = require("./models/Post/Post");
+const cors = require("cors");
+const connectDB = require("./utils/connectDB");
 // call the db
-connectDB()
-const app = express()
+connectDB();
+const app = express();
 
 //* Middlewares
-app.use(express.json()) //parse json data
+app.use(express.json()); //parse json data
 
 //* cors middleware
 const corsOption = {
     origin: [process.env.WEBSITE],
-    Credential: true
-}
-app.use(cors(corsOption))
+    Credential: true,
+};
+app.use(cors(corsOption));
 
 //! Create post
-app.post('/api/v1/posts/create', async (req, res, next) => {
+app.post("/api/v1/posts/create", async (req, res, next) => {
     try {
         //* get the payload
-        const postData = req.body
-        const postCreated = await Post.create(postData)
+        const { title, description } = req.body;
+
+        // find the post by title
+        const postFound = await Post.findOne({ title });
+        if (postFound) {
+            throw new Error("Post already exists");
+        }
+        console.log(req.body);
+        const postCreated = await Post.create({ title, description });
         res.json({
-            'status': 'success',
-            'message': 'Post created successfully',
-            postCreated
-        })
+            status: "success",
+            message: "Post created successfully",
+            postCreated,
+        });
     } catch (error) {
-        console.log(error)
-        res.json(error)
+        next(error);
     }
-})
+});
 //! List posts
-app.get('/api/v1/posts', async (req, res) => {
+app.get("/api/v1/posts", async (req, res) => {
     try {
-        const posts = await Post.find()
+        const posts = await Post.find();
         res.json({
-            status: 'success',
-            message: 'Post fetched successfully',
-            posts
-        })
+            status: "success",
+            message: "Post fetched successfully",
+            posts,
+        });
     } catch (error) {
-        res.json(error)
+        res.json(error);
     }
-})
+});
 //! Update post
-app.put('/api/v1/posts/:postId', async (req, res) => {
+app.put("/api/v1/posts/:postId", async (req, res) => {
     try {
         // get the post id from params
-        const postId = req.params.postId
+        const postId = req.params.postId;
         // find the post
-        const postFound = await Post.findById(postId)
+        const postFound = await Post.findById(postId);
         if (!postFound) {
-            throw new Error('Post not found')
+            throw new Error("Post not found");
         }
         // update
         const postUpdated = await Post.findByIdAndUpdate(
             postId,
             { title: req.body.title, description: req.body.description },
             {
-                new: true
+                new: true,
             }
-        )
+        );
         res.json({
-            status: 'Post updated successfully',
-            postUpdated
-        })
+            status: "Post updated successfully",
+            postUpdated,
+        });
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
-})
+});
 //! Get post
-app.get('/api/v1/posts/:postId', async (req, res) => {
+app.get("/api/v1/posts/:postId", async (req, res) => {
     try {
         // get the post id from params
-        const postId = req.params.postId
+        const postId = req.params.postId;
         // find the post
-        const postFound = await Post.findById(postId)
+        const postFound = await Post.findById(postId);
         res.json({
-            status: 'success',
+            status: "success",
             message: "Post fetched successfully",
-            postFound
-        })
+            postFound,
+        });
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
-})
+});
 //! Delete post
-app.delete('/api/v1/posts/:postId', async (req, res) => {
+app.delete("/api/v1/posts/:postId", async (req, res) => {
     try {
         // get the post id from params
-        const postId = req.params.postId
+        const postId = req.params.postId;
         // find the post and delete it
-        await Post.findByIdAndDelete(postId)
+        await Post.findByIdAndDelete(postId);
         res.json({
-            status: 'success',
-            message: "Post deleted successfully"
-        })
+            status: "success",
+            message: "Post deleted successfully",
+        });
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
     }
-})
+});
 
-//! Error handling middleware 3.51
+//! Error handling middleware
 app.use((err, req, res, next) => {
-    console.log(err)
-})
+    // prepare the error messages
+    const { message, stack } = err;
+    res.status(500).json({
+        message,
+        stack,
+    });
+});
 
 //! PORT
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 //! Start the server....
-app.listen(PORT, console.log(`Server is up and running on port ${PORT}`))
+app.listen(PORT, console.log(`Server is up and running on port ${PORT}`));
