@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const Post = require("./models/Post/Post");
 const cors = require("cors");
+const asyncHandler = require("express-async-handler");
 const connectDB = require("./utils/connectDB");
 // call the db
 connectDB();
@@ -20,8 +21,9 @@ const corsOption = {
 app.use(cors(corsOption));
 
 //! Create post
-app.post("/api/v1/posts/create", async (req, res, next) => {
-    try {
+app.post(
+    "/api/v1/posts/create",
+    asyncHandler(async (req, res) => {
         //* get the payload
         const { title, description } = req.body;
 
@@ -37,26 +39,24 @@ app.post("/api/v1/posts/create", async (req, res, next) => {
             message: "Post created successfully",
             postCreated,
         });
-    } catch (error) {
-        next(error);
-    }
-});
+    })
+);
 //! List posts
-app.get("/api/v1/posts", async (req, res) => {
-    try {
+app.get(
+    "/api/v1/posts",
+    asyncHandler(async (req, res) => {
         const posts = await Post.find();
         res.json({
             status: "success",
             message: "Post fetched successfully",
             posts,
         });
-    } catch (error) {
-        res.json(error);
-    }
-});
+    })
+);
 //! Update post
-app.put("/api/v1/posts/:postId", async (req, res) => {
-    try {
+app.put(
+    "/api/v1/posts/:postId",
+    asyncHandler(async (req, res) => {
         // get the post id from params
         const postId = req.params.postId;
         // find the post
@@ -76,13 +76,12 @@ app.put("/api/v1/posts/:postId", async (req, res) => {
             status: "Post updated successfully",
             postUpdated,
         });
-    } catch (error) {
-        throw new Error(error);
-    }
-});
+    })
+);
 //! Get post
-app.get("/api/v1/posts/:postId", async (req, res) => {
-    try {
+app.get(
+    "/api/v1/posts/:postId",
+    asyncHandler(async (req, res) => {
         // get the post id from params
         const postId = req.params.postId;
         // find the post
@@ -92,13 +91,12 @@ app.get("/api/v1/posts/:postId", async (req, res) => {
             message: "Post fetched successfully",
             postFound,
         });
-    } catch (error) {
-        throw new Error(error);
-    }
-});
+    })
+);
 //! Delete post
-app.delete("/api/v1/posts/:postId", async (req, res) => {
-    try {
+app.delete(
+    "/api/v1/posts/:postId",
+    asyncHandler(async (req, res) => {
         // get the post id from params
         const postId = req.params.postId;
         // find the post and delete it
@@ -107,10 +105,8 @@ app.delete("/api/v1/posts/:postId", async (req, res) => {
             status: "success",
             message: "Post deleted successfully",
         });
-    } catch (error) {
-        throw new Error(error);
-    }
-});
+    })
+);
 
 //! Error handling middleware
 app.use((err, req, res, next) => {
