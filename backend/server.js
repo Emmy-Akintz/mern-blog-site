@@ -20,7 +20,7 @@ const corsOption = {
 app.use(cors(corsOption));
 
 //! ---------route handlers-------
-app.use("/", postRouter);
+app.use("/api/v1", postRouter);
 
 //! Not found
 app.use((req, res, next) => {
