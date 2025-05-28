@@ -1,0 +1,33 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "npm" # For npm, yarn, pnpm
+    directory: "/frontend" # Location of package.json and lockfile
+    schedule:
+      interval: "weekly" # How often to check for updates (daily, weekly, monthly)
+    open-pull-requests-limit: 20 # Max number of open PRs for version updates
+    reviewers:
+      - "Emmy-Akintz" # Optional: assign reviewers
+    labels:
+      - "dependency-updates-frontend" # Optional: add labels to PRs
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore-dev"
+      include: "scope"
+  - package-ecosystem: "npm" # For npm, yarn, pnpm
+    directory: "/backend" # Location of package.json and lockfile
+    schedule:
+      interval: "weekly" # How often to check for updates (daily, weekly, monthly)
+    open-pull-requests-limit: 20 # Max number of open PRs for version updates
+    reviewers:
+      - "Emmy-Akintz" # Optional: assign reviewers
+    labels:
+      - "dependency-updates-backend" # Optional: add labels to PRs
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore-dev"
+      include: "scope"
