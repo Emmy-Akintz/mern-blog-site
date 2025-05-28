@@ -15,8 +15,8 @@ updates:
     labels:
       - "dependency-updates-frontend" # Optional: add labels to PRs
     commit-message:
-      prefix: "chore"
-      prefix-development: "chore-dev"
+      prefix: "frontend-chore"
+      prefix-development: "frontend-chore-dev"
       include: "scope"
   - package-ecosystem: "npm" # For npm, yarn, pnpm
     directory: "/backend" # Location of package.json and lockfile
@@ -28,6 +28,6 @@ updates:
     labels:
       - "dependency-updates-backend" # Optional: add labels to PRs
     commit-message:
-      prefix: "chore"
-      prefix-development: "chore-dev"
+      prefix: "backend-chore"
+      prefix-development: "backend-chore-dev"
       include: "scope"
