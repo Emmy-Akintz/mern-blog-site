@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# filepath: e:\Coding\Github\learn\mern-blog-site\backend\.husky\pre-commit
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx lint-staged
