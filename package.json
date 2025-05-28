@@ -1,0 +1,35 @@
+{
+  "name": "mern-blog-site",
+  "version": "1.0.0",
+  "description": "A MERN stack blog site.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "npm run lint --prefix frontend"
+    ],
+    "backend/**/*.js": [
+      "npm run lint --prefix backend"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emmy-Akintz/mern-blog-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Emmy-Akintz/mern-blog-site/issues"
+  },
+  "homepage": "https://github.com/Emmy-Akintz/mern-blog-site#readme",
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0"
+  }
+}
