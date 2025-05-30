@@ -6,7 +6,6 @@ const BASE_URL = import.meta.env.VITE_SERVER_LINK
 export const createPostAPI = async (postData) => {
     console.log(postData)
     const response = await axios.post(`${BASE_URL}/create`, {
-        title: postData.title,
         description: postData.description
     })
     return response.data

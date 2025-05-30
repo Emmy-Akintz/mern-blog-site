@@ -1,10 +1,12 @@
-import React from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import ReactQuill from 'react-quill';
 import { useMutation } from '@tanstack/react-query'
 import { createPostAPI } from '../../APIServices/posts/postsAPI'
 
 const CreatePost = () => {
+    // state for wysiwyk
+    // const [description, setDescription] = useState('');
     // post mutation
     const postMutation = useMutation({
         mutationKey: ['create-post'],
@@ -13,18 +15,15 @@ const CreatePost = () => {
     const formik = useFormik({
         // initial data
         initialValues: {
-            title: '',
             description: ''
         },
         // validation
         validationSchema: Yup.object({
-            title: Yup.string().required('Title is required'),
             description: Yup.string().required('Description is required')
         }),
         // submit
         onSubmit: (values) => {
             const postData = {
-                title: values.title,
                 description: values.description
             }
             postMutation.mutate(postData)
@@ -42,20 +41,13 @@ const CreatePost = () => {
             {isSuccess && <p>Post created successfully</p>}
             {isError && <p style={{ color: "red" }}>{errMsg}</p>}
             <form onSubmit={formik.handleSubmit}>
-                <input
-                    type="text"
-                    name='title'
-                    placeholder='Enter Title'
-                    {...formik.getFieldProps('title')}
-                />
-                {/* display err msg */}
-                {formik.touched.title && formik.errors.title &&
-                    <span style={{ color: 'red' }}>{formik.errors.title}</span>}
-                <input
-                    type="text"
-                    name='description'
-                    placeholder='Enter Description'
-                    {...formik.getFieldProps('description')}
+                <ReactQuill
+                    value={formik.values.description}
+                    onChange={(value) => {
+                        // setDescription(value)
+                        formik.setFieldValue('description', value)
+                    }}
+                    placeholder='Write your post description here...'
                 />
                 {/* display err msg */}
                 {formik.touched.description && formik.errors.description &&
