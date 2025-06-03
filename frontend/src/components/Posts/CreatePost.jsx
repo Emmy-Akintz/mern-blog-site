@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useMutation } from '@tanstack/react-query'
 import { createPostAPI } from '../../APIServices/posts/postsAPI'
 
