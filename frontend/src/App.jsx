@@ -1,6 +1,6 @@
 import CreatePost from './components/Posts/CreatePost'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import PostsList from './components/PostsList'
+import PostsList from './components/Posts/PostsList.jsx'
 import PublicNavbar from './components/Navbar/PublicNavbar'
 import HomePage from './components/Home/HomePage'
 import UpdatePost from './components/Posts/UpdatePost.jsx'
