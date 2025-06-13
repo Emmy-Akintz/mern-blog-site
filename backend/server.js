@@ -4,7 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./utils/connectDB");
-const postRouter = require("./router/Post/postRouter");
+const postsRouter = require("./router/Post/postsRouter");
 // call the db
 connectDB();
 const app = express();
@@ -20,15 +20,15 @@ const corsOption = {
 app.use(cors(corsOption));
 
 //! ---------route handlers-------
-app.use("/api/v1", postRouter);
+app.use("/api/v1", postsRouter);
 
 //! Not found
-app.use((req, res, next) => {
+app.use((req, res, next) => { // eslint-disable-line no-unused-vars
     res.status(404).json({ message: "Route not found on our server" });
 });
 
 //! Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     // prepare the error messages
     const { message, stack } = err;
     res.status(500).json({

@@ -1,10 +1,24 @@
 import js from "@eslint/js";
 import globals from "globals";
-import { defineConfig } from "eslint/config";
 
-
-export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"] },
-  { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
-  { files: ["**/*.{js,mjs,cjs}"], languageOptions: { globals: globals.browser } },
-]);
+export default [
+  {
+    ignores: [
+      "**/Templates/**",
+      "node_modules/**",
+      "logs/**",
+      "tmp/**"
+    ]
+  },
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "commonjs", // For Node.js with require/module.exports
+      globals: {
+        ...globals.node, // This provides Node.js globals like 'process', '__dirname', etc.
+      },
+    },
+  },
+  js.configs.recommended, // Apply ESLint's recommended rules
+];
