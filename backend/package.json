@@ -15,7 +15,7 @@
   "author": "Emmy-Akintz",
   "license": "ISC",
   "dependencies": {
-    "cloudinary": "^1.41.3",
+    "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^5.1.0",
